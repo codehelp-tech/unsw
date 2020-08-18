@@ -1,0 +1,45 @@
+Assignment 2: sheeple, Sheeple
+
+Aims
+This assignment aims to give you
+
+practice in Perl programming generally
+experience in translating between complex formats with Perl
+clarify your understanding of shell syntax & semantics
+
+##更多代码请咨询
+##微信：hellochina9999
+
+#!/usr/bin/perl -w
+use strict;
+use warnings FATAL => 'all';
+
+my @keywords = ("case", "do", "done", "elif", "else", "esac",
+    "fi", "for", "function", "if", "in", "select",
+    "then", "time", "until", "while");
+
+my @no_translate = ("&&", "||", ";",);
+my $cant_translate = 0;
+
+my %int_test = (
+    "-eq" => "==",
+    "-ge" => ">=",
+    "-gt" => ">",
+    "-le" => "<=",
+    "-lt" => "<",
+    "-ne" => "!=");
+
+my @shell = <>;
+my @PERL_SCRIPT = ();
+my $loop = 0;                          # flag to indicate whether currently in loop
+my $if = 0;                            # if flag to indicate if in if statement
+my $var_re = "[A-Za-z_][0-9A-Za-z_]*"; # shell variable regex
+
+# read shell
+if ($shell[0] =~ /^#!/) {
+    # die if !($shell[0] =~ /^#!\/bin\/sh/ or $shell[0] =~ /^#!\/bin\/bash/); # if not shell, die
+
+    # if not shell, die
+    die if !($shell[0] =~ /sh/);
+    shift @shell;
+}
